@@ -1,5 +1,1 @@
-export default function gameReducer (
-
-){
-  
-}
+export default function gameReducer () {}

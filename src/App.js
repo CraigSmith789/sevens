@@ -1,15 +1,14 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 import GameBoard from './GameBoard'
 
-function App() {
+function App () {
   return (
-    <div className="App">
+    <div className='App'>
       <header>Welcome to Sevens</header>
       <GameBoard />
-      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

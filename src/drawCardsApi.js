@@ -1,18 +1,20 @@
-import { useState } from "react"
+import { useState } from 'react'
 import { getPossibleMoves } from './makeMove'
-let playerOneHand = [];
-let playerTwoHand = [];
-let playerThreeHand = [];
-let playerFourHand = [];
-let players = [];
+let playerOneHand = []
+let playerTwoHand = []
+let playerThreeHand = []
+let playerFourHand = []
+let players = []
 
 const DrawCards = async () => {
   // const [items, setItems] = useState([]);
-  console.log("IN DRAW")
-  fetch("https://deckofcardsapi.com/api/deck/jwsoleglkmmd/draw/?count=52")
+  console.log('IN DRAW')
+  fetch('https://deckofcardsapi.com/api/deck/jwsoleglkmmd/draw/?count=52')
     .then(res => res.json())
     .then(
-      (data) => { dealCards(data) }
+      data => {
+        dealCards(data)
+      }
 
       //   this.setState({
       //     isLoaded: true,
@@ -30,24 +32,21 @@ const DrawCards = async () => {
       //   }
     )
 }
-let dealCards = (data) => {
+let dealCards = data => {
   console.log(data)
-  playerOneHand = (data.cards.slice(0, 13));
-  playerTwoHand = (data.cards.slice(13, 26));
-  playerThreeHand = (data.cards.slice(26, 39));
-  playerFourHand = (data.cards.slice(39,));
-  console.log(playerOneHand);
-  console.log(playerTwoHand);
-  console.log(playerThreeHand);
-  console.log(playerFourHand);
-  players = [playerOneHand, playerTwoHand, playerThreeHand, playerFourHand];
-
+  playerOneHand = data.cards.slice(0, 13)
+  playerTwoHand = data.cards.slice(13, 26)
+  playerThreeHand = data.cards.slice(26, 39)
+  playerFourHand = data.cards.slice(39)
+  console.log(playerOneHand)
+  console.log(playerTwoHand)
+  console.log(playerThreeHand)
+  console.log(playerFourHand)
+  players = [playerOneHand, playerTwoHand, playerThreeHand, playerFourHand]
 }
 
 export const getPlayers = () => {
-  return players;
+  return players
 }
 
-
-
-export default DrawCards;
+export default DrawCards
