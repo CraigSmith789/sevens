@@ -7,6 +7,17 @@ export const reshuffleCards = async () => {
     })
 }
 
+
+export function thunkReshuffleCards() {
+  console.log('IN shuffle')
+  return dispatch => {
+  console.log('IN Reshuffle')
+  fetch('https://deckofcardsapi.com/api/deck/jwsoleglkmmd/shuffle/')
+    .then(res => res.json())
+    .then(res => dispatch({type: 'SHUFFLE_CARDS'}))
+    
+}}
+
 export const createNewDeck = async () => {
   console.log('IN FETCH')
   fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
