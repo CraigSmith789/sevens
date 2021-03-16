@@ -1,4 +1,4 @@
-import { getPlayers } from './drawCardsApi'
+import { getPlayers } from './actions/deckActions'
 
 const cardValues = [
   'Ace',

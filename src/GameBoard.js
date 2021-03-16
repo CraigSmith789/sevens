@@ -1,6 +1,6 @@
 import React from 'react'
 import { createNewDeck } from './actions/deckActions'
-import DrawCards from './drawCardsApi'
+import { drawCards } from './actions/deckActions'
 import { makeAMove } from './makeMove'
 import { reshuffleCards } from './actions/deckActions'
 
@@ -8,7 +8,7 @@ export default class GameBoard extends React.Component {
   state = {}
   componentDidMount = async () => {
     // createNewDeck()
-    //  DrawCards()
+    //  drawCards()
     // reshuffleCards()
   }
   render () {
@@ -18,7 +18,7 @@ export default class GameBoard extends React.Component {
         Game Board
         <button onClick={createNewDeck}>New Game</button>
         <button onClick={reshuffleCards}>Reshuffle</button>
-        <button onClick={DrawCards}>Deal Cards</button>
+        <button onClick={drawCards}>Deal Cards</button>
         <button onClick={makeAMove}>Make A Move For Player 1</button>
       </div>
     )
