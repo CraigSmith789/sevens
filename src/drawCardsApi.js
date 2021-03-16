@@ -44,31 +44,10 @@ let dealCards = (data) => {
 
 }
 
-
-export const getPossibleMovesForPlayer = () => {
-  
-  let playerHand = players[0];
-  console.log(playerHand);
-
-  let movesForPlayer = [];
-
-  let possibleMoves = getPossibleMoves();
-
-  console.log(possibleMoves);
-
-  playerHand.forEach((card) => {
-    possibleMoves.forEach((move) => {
-      if(move.value === card.value && move.suit === card.suit){
-        console.log("Valid move: "+ card.suit+" "+ card.value);
-        movesForPlayer.push(move);
-      }
-    });
-  });
-  console.log("Possible moves for player:")
-  console.log(movesForPlayer)
-  return movesForPlayer;
-
-
+export const getPlayers = () => {
+  return players;
 }
+
+
 
 export default DrawCards;
