@@ -1,9 +1,9 @@
 import React from 'react'
-import { createNewDeck } from './newDeckApi'
+import { createNewDeck } from './actions/deckActions'
 import DrawCards from './drawCardsApi'
 import { makeAMove } from './makeMove'
+import { reshuffleCards } from './actions/deckActions'
 
-import { reshuffleCards } from './reshuffleApi'
 export default class GameBoard extends React.Component {
   state = {}
   componentDidMount = async () => {
