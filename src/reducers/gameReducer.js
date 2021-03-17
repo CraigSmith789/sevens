@@ -8,6 +8,9 @@ action) {
 
     case 'SHUFFLE_CARDS':
       return state;
+
+      default:
+        return state
   }
   
 }

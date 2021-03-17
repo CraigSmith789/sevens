@@ -1,30 +1,7 @@
-export const reshuffleCards = async () => {
-  console.log('IN Reshuffle')
+export const reshuffleCards = () => dispatch => {
   fetch('https://deckofcardsapi.com/api/deck/jwsoleglkmmd/shuffle/')
     .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    })
-}
-
-
-export function thunkReshuffleCards() {
-  console.log('IN shuffle')
-  return dispatch => {
-  console.log('IN Reshuffle')
-  fetch('https://deckofcardsapi.com/api/deck/jwsoleglkmmd/shuffle/')
-    .then(res => res.json())
-    .then(res => dispatch({type: 'SHUFFLE_CARDS'}))
-    
-}}
-
-export const createNewDeck = async () => {
-  console.log('IN FETCH')
-  fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
-    .then(res => res.json())
-    .then(data => {
-      debugger
-    })
+    .then(data => dispatch({ type: 'SHUFFLE_CARDS', payload: data }))
 }
 
 // import { useState } from 'react'
@@ -40,13 +17,9 @@ export const drawCards = async () => {
   console.log('IN DRAW')
   fetch('https://deckofcardsapi.com/api/deck/jwsoleglkmmd/draw/?count=52')
     .then(res => res.json())
-    .then(
-      data => {
-        dealCards(data)
-      }
-
-     
-    )
+    .then(data => {
+      dealCards(data)
+    })
 }
 let dealCards = data => {
   console.log(data)
@@ -65,5 +38,11 @@ export const getPlayers = () => {
   return players
 }
 
-
-
+// export const createNewDeck = async () => {
+//   console.log('IN FETCH')
+//   fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+//     .then(res => res.json())
+//     .then(data => {
+//       debugger
+//     })
+// }
