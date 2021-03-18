@@ -1,9 +1,4 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { makeAMove } from '../actions/makeMove'
-import { reshuffleCards } from '../actions/deckActions'
-
-import LivePlayer from '../components/LivePlayer'
+import { CardDeck } from "react-bootstrap"
 
 let clubsRow = [
   {
@@ -209,7 +204,7 @@ let spadesRow = [
 let diamondsRow = [
   {
     value: 'AD',
-    image: 'https://deckofcardsapi.com/static/img/aceDiamonds.png'
+    image: "https://deckofcardsapi.com/static/img/aceDiamonds.png"
   },
 
   {
@@ -273,64 +268,40 @@ let diamondsRow = [
   }
 ]
 
-export class GameBoard extends React.Component {
-  state = {}
+let clubCards = clubsRow.map((card) => 
+<div id={card.value} style="height:20px, width: 10px"><img src={CardDeck.image></div>
+)
+heartCards = heartsRow.map((card) =>
+<div id={card.value} style="height:20px, width: 10px"><img src={CardDeck.image></div>
+);
+spadeCards = spadesRow.map((card) =>
+<div id={card.value} style="height:20px, width: 10px"><img src={CardDeck.image></div>
+);
+diamondCards = diamondsRow.map((card) =>
+<div id={card.value} style="height:20px, width: 10px"><img src={CardDeck.image></div>
+);
 
-  render () {
-    return (
-      <div>
-        <div class='club-row' style={{display:'flex'}}>
-          {clubCards}
-        </div>
+ReactDOM.render(
+<div class="club-row" style="display:flex">
+  {clubCards}
+</div>
 
-        <div class='heart-row' style={{display:'flex'}}>
-          {heartCards}
-        </div>
+<div class="heart-row" style="display:flex">
+  {heatCards}
+</div>
 
-        <div class='spade-row' style={{display:'flex'}}>
-          {spadeCards}
-        </div>
+<div class="spade-row" style="display:flex">
+  {spadeCards}
+</div>
 
-        <div class='diamond-row' style={{display:'flex'}}>
-          {diamondCards}
-        </div>
-        <LivePlayer />
-        <button onClick={this.props.reshuffleCards}>Start Game</button>
-        <button onClick={makeAMove}>Game Simulator</button>
-        {/* <button onClick={this.props.reshuffleCards}>THUNK</button> */}
-      </div>
-    )
-  }
-}
-const mapDispatchToProps = dispatch => ({
-  reshuffleCards: () => dispatch(reshuffleCards())
-})
+<div class="diamond-row" style="display:flex">
+  {diamondCards}
+</div>
 
-function mapStateToProps (state) {
-  return {
-    gameReducer: state
-  }
-}
 
-let clubCards = clubsRow.map(card => (
-  <div id={card.value} style={{width:'75px', height:'105px'}}>
-    <img src={card.image} style={{width:'75px', height:'105px'}}  />
-  </div>
-))
-let heartCards = heartsRow.map(card => (
-  <div id={card.value} style={{width:'75px', height:'105px'}}>
-    <img src={card.image} style={{width:'75px', height:'105px'}}  />
-  </div>
-))
-let spadeCards = spadesRow.map(card => (
-  <div id={card.value} style={{width:'75px', height:'105px'}}>
-    <img src={card.image} style={{width:'75px', height:'105px'}}  />
-  </div>
-))
-let diamondCards = diamondsRow.map(card => (
-  <div id={card.value} style={{width:'75px', height:'105px'}}>
-    <img src={card.image} style={{width:'75px', height:'105px'}}  />
-  </div>
-))
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameBoard)
+
+)
+
+
+

@@ -3,15 +3,15 @@ import { connect } from 'react-redux'
 
 const LivePlayer = () => {
   return(
-    <div>
-    <h1>Live Player</h1>
+    <div >
+          <button >PASS</button>
+        </div>
     
-    
-    {/* //map through play one array of objects and display card images
+    // {/* //map through play one array of objects and display card images
     //highlight playable cards and add Event List to select
     //have a pass button to confirm passing?
     //continue play to auto players */}
-    </div>
+    
   )
   // function mapDispatchToProps (dispatch) {
   //   return { reshuffleCards: () => dispatch(reshuffleCards()) }
