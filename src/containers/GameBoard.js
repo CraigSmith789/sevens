@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { makeAMove } from '../actions/makeMove'
 import { reshuffleCards } from '../actions/deckActions'
 import LivePlayer from '../components/LivePlayer'
-import store from './../store'
 
 
 let clubsRow = [
@@ -351,9 +350,6 @@ export class GameBoard extends React.Component {
         <br/>
         <br/>
         <LivePlayer />
-        <div className='live-hand-row' style={{display:'flex'}}>
-          {livePlayerHand}
-        </div>
         <button onClick={this.props.reshuffleCards}>Start Game</button>
         <button onClick={makeAMove}>Game Simulator</button>
         {/* <button onClick={this.props.reshuffleCards}>THUNK</button> */}
@@ -367,40 +363,29 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state) => ({
     cards: state,
-    playerOneCards: state.playerOneHand
-
   
 });
 
-let state = store.getState()
-let livePlayer = state.playerOneHand;
-console.log("hi:")
-console.log(livePlayer)
-let livePlayerHand = livePlayer.map(card => (
-  <div id={card.value} style={{width:'75px', height:'105px'}}>
-    <img src={card.image} style={{width:'75px', height:'105px'}}  />
-  </div>
-))
 
 let clubCards = clubsRow.map(card => (
   <div id={card.value} style={{width:'75px', height:'105px'}}>
     <img src={card.image} style={{width:'75px', height:'105px'}}  />
   </div>
-))
+));
 let heartCards = heartsRow.map(card => (
   <div id={card.value} style={{width:'75px', height:'105px'}}>
     <img src={card.image} style={{width:'75px', height:'105px'}}  />
   </div>
-))
+));
 let spadeCards = spadesRow.map(card => (
   <div id={card.value} style={{width:'75px', height:'105px'}}>
     <img src={card.image} style={{width:'75px', height:'105px'}}  />
   </div>
-))
+));
 let diamondCards = diamondsRow.map(card => (
   <div id={card.value} style={{width:'75px', height:'105px'}}>
     <img src={card.image} style={{width:'75px', height:'105px'}}  />
   </div>
-))
+));
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameBoard)

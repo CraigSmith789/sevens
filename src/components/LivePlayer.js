@@ -1,20 +1,30 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
+import store from './../store'
 
 const LivePlayer = () => {
-  return(
-    <div >
-          <button >PASS</button>
-        </div>
-    
-    // {/* //map through play one array of objects and display card images
-    //highlight playable cards and add Event List to select
-    //have a pass button to confirm passing?
-    //continue play to auto players */}
-    
+  return (
+    <div>
+      <button>PASS</button>
+      <div className='live-hand-row' style={{ display: 'flex' }}>
+        {livePlayerHand}
+      </div>
+    </div>
   )
-  // function mapDispatchToProps (dispatch) {
-  //   return { reshuffleCards: () => dispatch(reshuffleCards()) }
 }
 
-export default LivePlayer
+const mapStateToProps = state => ({
+  playerOneCards: state.playerOneHand
+})
+
+let state = store.getState()
+let livePlayer = state.playerOneHand
+console.log('hi:')
+console.log(livePlayer)
+let livePlayerHand = livePlayer.map(card => (
+  <div id={card.value} style={{ width: '75px', height: '105px' }}>
+    <img src={card.image} style={{ width: '75px', height: '105px' }} />
+  </div>
+))
+
+export default connect(mapStateToProps, null)(LivePlayer)
