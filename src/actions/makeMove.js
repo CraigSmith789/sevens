@@ -1,5 +1,4 @@
-import { getPlayers } from './deckActions'
-
+import store from './../store'
 const cardValues = [
   'Ace',
   '2',
@@ -17,6 +16,7 @@ const cardValues = [
 ]
 
 let cardsOnBoard = []
+let players = []
 
 let possibleMoves = [
   { value: '7', suit: 'SPADES' },
@@ -31,15 +31,29 @@ export const getPossibleMoves = () => {
 
 //this only exists for a test. it is connected to the button
 export const makeAMove = () => {
-  makeMoveCPU(0)
-  makeMoveCPU(1)
-  makeMoveCPU(2)
-  makeMoveCPU(3)
+  let state = store.getState()
+  players = [
+    state.playerOneHand,
+    state.playerTwoHand,
+    state.playerThreeHand,
+    state.playerFourHand
+  ]
+  while (
+    players[0].length > 0 &&
+    players[1].length > 0 &&
+    players[2].length > 0 &&
+    players[3].length > 0
+  ) {
+    makeMoveCPU(0)
+    makeMoveCPU(1)
+    makeMoveCPU(2)
+    makeMoveCPU(3)
+  }
 }
 
 export const makeMoveCPU = playerNumber => {
   let moves = getPossibleMovesForPlayer(playerNumber)
-  let hand = getPlayers()[playerNumber]
+  let hand = players[playerNumber]
   if (moves.length === 0) {
     console.log('No available moves. Player must pass.')
   } else {
@@ -52,6 +66,7 @@ export const makeMoveCPU = playerNumber => {
     )
     console.log(updatedHand)
     //THIS IS WHERE YOU UPDATE STATE FOR THE PLAYER'S HAND
+    players[playerNumber] = updatedHand
     return updatedHand
   }
 }
@@ -107,7 +122,7 @@ export const decrement = (suit, index) => {
 }
 
 export const getPossibleMovesForPlayer = playerNumber => {
-  let playerHand = getPlayers()[playerNumber]
+  let playerHand = players[playerNumber]
   console.log(playerHand)
 
   let movesForPlayer = []
