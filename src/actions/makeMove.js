@@ -31,6 +31,47 @@ export const getPossibleMoves = () => {
 
 //this only exists for a test. it is connected to the button
 export const makeAMove = () => {
+  
+
+  setTimeout(() => {
+    makeMoveCPU(0)
+    setTimeout(() => {
+      makeMoveCPU(1)
+      setTimeout(() => {
+        makeMoveCPU(2)
+        setTimeout(() => {
+          makeMoveCPU(3)
+          setTimeout(() => {
+            makeMoveCPU(0)
+            setTimeout(() => {
+              makeMoveCPU(1)
+              setTimeout(() => {
+                makeMoveCPU(2)
+                setTimeout(() => {
+                  makeMoveCPU(3)
+                  setTimeout(() => {
+                    makeMoveCPU(0)
+                    setTimeout(() => {
+                      makeMoveCPU(1)
+                      setTimeout(() => {
+                        makeMoveCPU(2)
+                        setTimeout(() => {
+                          makeMoveCPU(3)
+                        }, 1000)
+                      }, 1000)
+                    }, 1000)
+                  }, 1000)
+                }, 1000)
+              }, 1000)
+            }, 1000)
+          }, 1000)
+        }, 1000)
+      }, 1000)
+    }, 1000)
+  }, 1000)
+}
+
+export const makeMoveCPU = playerNumber => {
   let state = store.getState()
   players = [
     state.playerOneHand,
@@ -38,13 +79,6 @@ export const makeAMove = () => {
     state.playerThreeHand,
     state.playerFourHand
   ]
-  makeMoveCPU(0)
-  makeMoveCPU(1)
-  makeMoveCPU(2)
-  makeMoveCPU(3)
-}
-
-export const makeMoveCPU = playerNumber => {
   let moves = getPossibleMovesForPlayer(playerNumber)
   let hand = players[playerNumber]
   if (moves.length === 0) {
@@ -59,15 +93,21 @@ export const makeMoveCPU = playerNumber => {
     )
     console.log(updatedHand)
     //THIS IS WHERE YOU UPDATE STATE FOR THE PLAYER'S HAND
-    players[playerNumber] = updatedHand
+    updateHandState(playerNumber, updatedHand);
     return updatedHand
   }
 }
+
+const updateHandState = (playerNumber, updatedHand) => {
+  store.dispatch({ type: 'UPDATE_HAND_' + playerNumber, newHand: updatedHand })
+
+}
+
 export const playCard = move => {
   //TODO: if playing the card makes them have 0 cards, end the game
   // TODO: convert move to card then add it to the board
   let cardIndex = cardValues.findIndex(value => value === move.value)
-  store.dispatch({ type: 'UPDATE_CLUBS', index: cardIndex })
+  store.dispatch({ type: 'UPDATE_' + move.suit, index: cardIndex })
   console.log('playing the ' + move.value + ' of ' + move.suit)
   // update available moves
   updatePossibleMoves(move)
@@ -128,7 +168,7 @@ export const getPossibleMovesForPlayer = playerNumber => {
 
   playerHand.forEach(card => {
     possibleMoves.forEach(move => {
-      if (move.value === card.value && move.suit === card.suit) {
+      if (move.value.toUpperCase() === card.value && move.suit === card.suit) {
         console.log('Valid move: ' + card.suit + ' ' + card.value)
         movesForPlayer.push(move)
       }

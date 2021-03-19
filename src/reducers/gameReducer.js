@@ -345,20 +345,87 @@ export default function gameReducer (
       return newState
 
     case 'UPDATE_CLUBS':
-      console.log("we made it ma")
-      let clubs = state.clubsRow;
-      let index = action.index
-      let newIndex = { ...clubs[index], show: true }
-      let newClub = [...clubs.slice(0,index), newIndex, ...clubs.slice(index+1)]
-      console.log(newClub);
+      console.log('we made it ma')
+      let clubs = state.clubsRow
+      let cIndex = action.index
+      let newCIndex = { ...clubs[cIndex], show: true }
+      let newClub = [
+        ...clubs.slice(0, cIndex),
+        newCIndex,
+        ...clubs.slice(cIndex + 1)
+      ]
+      console.log(newClub)
       let newClubState = {
         ...state,
         clubsRow: newClub
       }
       return newClubState
 
+    case 'UPDATE_SPADES':
+      console.log('we made it ma')
+      let spades = state.spadesRow
+      let sIndex = action.index
+      let newSIndex = { ...spades[sIndex], show: true }
+      let newSpade = [
+        ...spades.slice(0, sIndex),
+        newSIndex,
+        ...spades.slice(sIndex + 1)
+      ]
+      console.log(newSpade)
+      let newSpadeState = {
+        ...state,
+        spadesRow: newSpade
+      }
+      return newSpadeState
+
+    case 'UPDATE_HEARTS':
+      console.log('we made it ma')
+      let hearts = state.heartsRow
+      let hIndex = action.index
+      let newHIndex = { ...hearts[hIndex], show: true }
+      let newHeart = [
+        ...hearts.slice(0, hIndex),
+        newHIndex,
+        ...hearts.slice(hIndex + 1)
+      ]
+      console.log(newHeart)
+      let newHeartState = {
+        ...state,
+        heartsRow: newHeart
+      }
+      return newHeartState
+
+    case 'UPDATE_DIAMONDS':
+      console.log('we made it ma')
+      let diamonds = state.diamondsRow
+      let dIndex = action.index
+      let newDIndex = { ...diamonds[dIndex], show: true }
+      let newDiamond = [
+        ...diamonds.slice(0, dIndex),
+        newDIndex,
+        ...diamonds.slice(dIndex + 1)
+      ]
+      console.log(newDiamond)
+      let newDiamondState = {
+        ...state,
+        diamondsRow: newDiamond
+      }
+      return newDiamondState
+
+    case 'UPDATE_HAND_1':
+      return { ...state, playerOneHand: action.newHand }
+
+    case 'UPDATE_HAND_2':
+      return { ...state, playerTwoHand: action.newHand }
+
+    case 'UPDATE_HAND_3':
+      return { ...state, playerThreeHand: action.newHand }
+
+    case 'UPDATE_HAND_4':
+      return { ...state, playerFourHand: action.newHand }
+
     default:
-      console.log("default case")
+      console.log('default case')
       return state
   }
 }
