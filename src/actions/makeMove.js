@@ -38,17 +38,10 @@ export const makeAMove = () => {
     state.playerThreeHand,
     state.playerFourHand
   ]
-  while (
-    players[0].length > 0 &&
-    players[1].length > 0 &&
-    players[2].length > 0 &&
-    players[3].length > 0
-  ) {
-    makeMoveCPU(0)
-    makeMoveCPU(1)
-    makeMoveCPU(2)
-    makeMoveCPU(3)
-  }
+  makeMoveCPU(0)
+  makeMoveCPU(1)
+  makeMoveCPU(2)
+  makeMoveCPU(3)
 }
 
 export const makeMoveCPU = playerNumber => {
@@ -73,6 +66,8 @@ export const makeMoveCPU = playerNumber => {
 export const playCard = move => {
   //TODO: if playing the card makes them have 0 cards, end the game
   // TODO: convert move to card then add it to the board
+  let cardIndex = cardValues.findIndex(value => value === move.value)
+  store.dispatch({ type: 'UPDATE_CLUBS', index: cardIndex })
   console.log('playing the ' + move.value + ' of ' + move.suit)
   // update available moves
   updatePossibleMoves(move)
