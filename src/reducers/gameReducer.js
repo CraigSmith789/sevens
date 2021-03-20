@@ -346,7 +346,6 @@ export default function gameReducer (
       return newState
 
     case 'UPDATE_CLUBS':
-      console.log('we made it ma')
       let clubs = state.clubsRow
       let cIndex = action.index
       let newCIndex = { ...clubs[cIndex], show: true }
@@ -363,7 +362,6 @@ export default function gameReducer (
       return newClubState
 
     case 'UPDATE_SPADES':
-      console.log('we made it ma')
       let spades = state.spadesRow
       let sIndex = action.index
       let newSIndex = { ...spades[sIndex], show: true }
@@ -380,7 +378,6 @@ export default function gameReducer (
       return newSpadeState
 
     case 'UPDATE_HEARTS':
-      console.log('we made it ma')
       let hearts = state.heartsRow
       let hIndex = action.index
       let newHIndex = { ...hearts[hIndex], show: true }
@@ -397,7 +394,6 @@ export default function gameReducer (
       return newHeartState
 
     case 'UPDATE_DIAMONDS':
-      console.log('we made it ma')
       let diamonds = state.diamondsRow
       let dIndex = action.index
       let newDIndex = { ...diamonds[dIndex], show: true }
