@@ -26,7 +26,7 @@ export class GameBoard extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style={{paddingLeft: "200px"}}>
         <div style={{ display: 'flex' }}>
           <div>
             <div className='club-row' style={{ display: 'flex' }}>

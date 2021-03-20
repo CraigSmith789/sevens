@@ -17,6 +17,7 @@ const cardValues = [
 ]
 
 let players = []
+let gameOver = false
 
 let possibleMoves = [
   { value: '7', suit: 'SPADES' },
@@ -70,42 +71,47 @@ export const makeAMove = () => {
 }
 
 export const makeMoveCPU = playerNumber => {
-  let state = store.getState()
-  players = [
-    state.playerOneHand,
-    state.playerTwoHand,
-    state.playerThreeHand,
-    state.playerFourHand
-  ]
-  let moves = getPossibleMovesForPlayer(playerNumber)
-  let hand = players[playerNumber]
+  if (!gameOver) {
+    let state = store.getState()
+    players = [
+      state.playerOneHand,
+      state.playerTwoHand,
+      state.playerThreeHand,
+      state.playerFourHand
+    ]
+    let moves = getPossibleMovesForPlayer(playerNumber)
+    let hand = players[playerNumber]
 
-  if (moves.length === 0) {
-    console.log('No available moves. Player must pass.')
-  } else {
-    //play first card - can add more logic here later
-    let moveMade = moves[0]
-    playCard(moveMade)
+    if (moves.length === 0) {
+      console.log('No available moves. Player must pass.')
+    } else {
+      //play first card - can add more logic here later
+      let moveMade = moves[0]
+      playCard(moveMade)
 
-    //remove card from hand
-    let updatedHand = hand.filter(
-      move => !(move.value === moveMade.value && move.suit === moveMade.suit)
-    )
+      //remove card from hand
+      let updatedHand = hand.filter(
+        move => !(move.value === moveMade.value && move.suit === moveMade.suit)
+      )
 
-    //check for winner
-    if (updatedHand.length === 0) {
-      console.log('player ' + (playerNumber + 1) + ' wins')
-      endGame(playerNumber)
+      console.log(updatedHand)
+
+      //Update the player's hand in state
+      updateHandState(playerNumber, updatedHand)
+
+      //check for winner
+      if (updatedHand.length === 0) {
+        console.log('Player ' + (playerNumber + 1) + ' Wins!!!')
+        endGame(playerNumber)
+      }
     }
-    console.log(updatedHand)
-
-    //Update the player's hand in state
-    updateHandState(playerNumber, updatedHand)
   }
 }
 
 const endGame = playerNumber => {
+  gameOver = true
   updateStats(playerNumber + 1)
+  alert('player ' + (playerNumber + 1) + ' wins')
 }
 
 const updateStats = winningPlayer => {
