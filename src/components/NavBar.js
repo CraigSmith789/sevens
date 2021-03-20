@@ -1,25 +1,35 @@
-import React from 'react';
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import {LinkContainer} from 'react-router-bootstrap'
+import React from 'react'
 
-const NavBar = () => {
-  return (
-    <Navbar bg='dark' variant='dark'>
-      <LinkContainer to='/'>
-        <Navbar.Brand>Home</Navbar.Brand>
-      </LinkContainer>
-      <Nav>
-        <LinkContainer to='/rules'>
-          <Nav.Link>Rules</Nav.Link>
-        </LinkContainer>
-        <br/>
-        <LinkContainer to='/stats'>
-          <Nav.Link> Stats</Nav.Link>
-        </LinkContainer>
-      </Nav>
-    </Navbar>
-  );
-};
+class NavBar extends React.Component {
+  render () {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          backgroundColor: 'lightGray',
+          height: '40px',
+          width: 'auto'
+        }}
+      >
+        <div style={linkStyle}>
+          <a href='/'>Home</a>
+        </div>
 
-export default NavBar;
+        <div style={linkStyle}>
+          <a href='/rules'>Rules</a>
+        </div>
+        <div style={linkStyle}>
+          <a href='/stats'>Stats</a>
+        </div>
+      </div>
+    )
+  }
+}
+
+const linkStyle = {
+  width: '100px',
+  height: '40px',
+  lineHeight: '40px'
+}
+
+export default NavBar

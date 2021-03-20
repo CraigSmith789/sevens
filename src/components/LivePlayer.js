@@ -6,6 +6,7 @@ class LivePlayer extends React.Component {
     return (
       <div>
         <div className='live-hand-row' style={{ display: 'flex' }}>
+        <h1>Player 1: </h1>
           {this.props.playerOneHand.map(card => (
             <Card card={card} />
           ))}
