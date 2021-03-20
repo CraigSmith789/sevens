@@ -111,7 +111,6 @@ export const makeMoveCPU = playerNumber => {
 const endGame = playerNumber => {
   gameOver = true
   updateStats(playerNumber + 1)
-  alert('player ' + (playerNumber + 1) + ' wins')
 }
 
 const updateStats = winningPlayer => {
@@ -127,7 +126,7 @@ const updateStats = winningPlayer => {
     .then(r => r.json())
     .then(data => {
       console.log(data)
-      fetchStats()
+      fetchStats().then(alert('player ' + winningPlayer + ' wins'))
     })
 }
 

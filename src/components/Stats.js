@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
 
 export const fetchStats = () => {
   console.log('in stat fetch')
-  fetch(`http://localhost:3001/stats`)
+  return fetch(`http://localhost:3001/stats`)
     .then(resp => resp.json())
     .then(data => {
       console.log(data)
