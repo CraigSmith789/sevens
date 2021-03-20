@@ -1,6 +1,7 @@
 import store from './../store'
+import { fetchStats } from './../components/Stats'
 const cardValues = [
-  'Ace',
+  'ACE',
   '2',
   '3',
   '4',
@@ -15,7 +16,6 @@ const cardValues = [
   'KING'
 ]
 
-let cardsOnBoard = []
 let players = []
 
 let possibleMoves = [
@@ -31,8 +31,6 @@ export const getPossibleMoves = () => {
 
 //this only exists for a test. it is connected to the button
 export const makeAMove = () => {
-  
-
   setTimeout(() => {
     makeMoveCPU(0)
     setTimeout(() => {
@@ -81,38 +79,70 @@ export const makeMoveCPU = playerNumber => {
   ]
   let moves = getPossibleMovesForPlayer(playerNumber)
   let hand = players[playerNumber]
+
   if (moves.length === 0) {
     console.log('No available moves. Player must pass.')
   } else {
     //play first card - can add more logic here later
     let moveMade = moves[0]
     playCard(moveMade)
+
     //remove card from hand
     let updatedHand = hand.filter(
       move => !(move.value === moveMade.value && move.suit === moveMade.suit)
     )
+
+    //check for winner
+    if (updatedHand.length === 0) {
+      console.log('player ' + (playerNumber + 1) + ' wins')
+      endGame(playerNumber)
+    }
     console.log(updatedHand)
-    //THIS IS WHERE YOU UPDATE STATE FOR THE PLAYER'S HAND
-    updateHandState(playerNumber, updatedHand);
-    return updatedHand
+
+    //Update the player's hand in state
+    updateHandState(playerNumber, updatedHand)
   }
 }
 
-const updateHandState = (playerNumber, updatedHand) => {
-  store.dispatch({ type: 'UPDATE_HAND_' + playerNumber, newHand: updatedHand })
+const endGame = playerNumber => {
+  updateStats(playerNumber + 1)
+}
 
+const updateStats = winningPlayer => {
+  const configObj = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+  }
+
+  fetch('http://localhost:3001/stats/' + winningPlayer, configObj)
+    .then(r => r.json())
+    .then(data => {
+      console.log(data)
+      fetchStats()
+    })
+}
+
+const updateHandState = (playerNumber, updatedHand) => {
+  store.dispatch({
+    type: 'UPDATE_HAND_' + (playerNumber + 1),
+    newHand: updatedHand
+  })
 }
 
 export const playCard = move => {
-  //TODO: if playing the card makes them have 0 cards, end the game
-  // TODO: convert move to card then add it to the board
+  // Add played card to game board
   let cardIndex = cardValues.findIndex(value => value === move.value)
   store.dispatch({ type: 'UPDATE_' + move.suit, index: cardIndex })
   console.log('playing the ' + move.value + ' of ' + move.suit)
-  // update available moves
+
+  // update available all moves
   updatePossibleMoves(move)
 }
 
+// Not using this yet
 export const makeMoveHuman = move => {
   let moves = getPossibleMovesForPlayer()
   if (moves.length === 0) {
@@ -121,8 +151,6 @@ export const makeMoveHuman = move => {
 }
 
 export const updatePossibleMoves = moveMade => {
-  //TODO: double check that the move is valid
-
   let cardIndex = cardValues.findIndex(value => value === moveMade.value)
 
   //add new possibilities, if any
@@ -166,6 +194,7 @@ export const getPossibleMovesForPlayer = playerNumber => {
 
   console.log(possibleMoves)
 
+  // loop through comparing all cards against all moves
   playerHand.forEach(card => {
     possibleMoves.forEach(move => {
       if (move.value.toUpperCase() === card.value && move.suit === card.suit) {

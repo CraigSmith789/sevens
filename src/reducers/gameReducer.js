@@ -5,6 +5,7 @@ export default function gameReducer (
     playerThreeHand: [],
     playerFourHand: [],
     players: [],
+    stats: [],
     clubsRow: [
       {
         value: 'AC',
@@ -423,6 +424,9 @@ export default function gameReducer (
 
     case 'UPDATE_HAND_4':
       return { ...state, playerFourHand: action.newHand }
+
+    case 'FETCH_STATS':
+      return { ...state, stats: action.stats }
 
     default:
       console.log('default case')

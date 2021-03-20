@@ -13,6 +13,14 @@ const blankStyle = {
   marginTop: '2px'
 }
 
+const cardStyle = {
+  width: '75px',
+  height: '105px',
+  marginRight: '2px',
+  marginLeft: '2px',
+  marginTop: '2px'
+}
+
 export class GameBoard extends React.Component {
   state = {}
 
@@ -25,8 +33,8 @@ export class GameBoard extends React.Component {
               {this.props.cards.clubsRow.map(card =>
                 card.show ? (
                   <div
-                    id={card.value}
-                    style={{ width: '75px', height: '105px' }}
+                    key={card.value}
+                    style={cardStyle}
                   >
                     <img
                       src={card.image}
@@ -34,7 +42,7 @@ export class GameBoard extends React.Component {
                     />
                   </div>
                 ) : (
-                  <div style={blankStyle}></div>
+                  <div key={"blank"+card.value} style={blankStyle}></div>
                 )
               )}
             </div>
@@ -43,8 +51,8 @@ export class GameBoard extends React.Component {
               {this.props.cards.heartsRow.map(card =>
                 card.show ? (
                   <div
-                    id={card.value}
-                    style={{ width: '75px', height: '105px' }}
+                    key={card.value}
+                    style={cardStyle}
                   >
                     <img
                       src={card.image}
@@ -52,7 +60,7 @@ export class GameBoard extends React.Component {
                     />
                   </div>
                 ) : (
-                  <div style={blankStyle}></div>
+                  <div key={"blank"+card.value} style={blankStyle}></div>
                 )
               )}
             </div>
@@ -61,8 +69,8 @@ export class GameBoard extends React.Component {
               {this.props.cards.spadesRow.map(card =>
                 card.show ? (
                   <div
-                    id={card.value}
-                    style={{ width: '75px', height: '105px' }}
+                    key={card.value}
+                    style={cardStyle}
                   >
                     <img
                       src={card.image}
@@ -70,7 +78,7 @@ export class GameBoard extends React.Component {
                     />
                   </div>
                 ) : (
-                  <div style={blankStyle}></div>
+                  <div key={"blank"+card.value} style={blankStyle}></div>
                 )
               )}
             </div>
@@ -79,8 +87,8 @@ export class GameBoard extends React.Component {
               {this.props.cards.diamondsRow.map(card =>
                 card.show ? (
                   <div
-                    id={card.value}
-                    style={{ width: '75px', height: '105px' }}
+                    key={card.value}
+                    style={cardStyle}
                   >
                     <img
                       src={card.image}
@@ -88,7 +96,7 @@ export class GameBoard extends React.Component {
                     />
                   </div>
                 ) : (
-                  <div style={blankStyle}></div>
+                  <div key={"blank"+card.value} style={blankStyle}></div>
                 )
               )}
             </div>

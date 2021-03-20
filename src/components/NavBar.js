@@ -7,12 +7,13 @@ const NavBar = () => {
   return (
     <Navbar bg='dark' variant='dark'>
       <LinkContainer to='/'>
-        <Navbar.Brand>Sevens</Navbar.Brand>
+        <Navbar.Brand>Home</Navbar.Brand>
       </LinkContainer>
       <Nav>
         <LinkContainer to='/rules'>
           <Nav.Link>Rules</Nav.Link>
         </LinkContainer>
+        <br/>
         <LinkContainer to='/stats'>
           <Nav.Link> Stats</Nav.Link>
         </LinkContainer>
