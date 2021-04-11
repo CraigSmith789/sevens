@@ -7,7 +7,7 @@ import Card from '../components/Card'
 import BlankCard from '../components/BlankCard'
 
 export class GameBoard extends React.Component {
-  state = {}
+ 
 
   render () {
     return (
@@ -60,6 +60,7 @@ export class GameBoard extends React.Component {
         <LivePlayer playerOneHand={this.props.cards.playerOneHand} />
         <button onClick={this.props.reshuffleCards}>Start Game</button>
         <button onClick={makeAMove}>Game Simulator</button>
+        
       </div>
     )
   }

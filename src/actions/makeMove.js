@@ -195,7 +195,7 @@ export const getPossibleMovesForPlayer = playerNumber => {
 
   let movesForPlayer = []
 
-  let possibleMoves = getPossibleMoves()
+  
 
   console.log(possibleMoves)
 
