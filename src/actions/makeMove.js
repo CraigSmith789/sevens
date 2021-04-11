@@ -18,7 +18,6 @@ const cardValues = [
 
 let players = []
 let gameOver = false
-
 let possibleMoves = [
   { value: '7', suit: 'SPADES' },
   { value: '7', suit: 'HEARTS' },
@@ -29,22 +28,13 @@ let possibleMoves = [
 export const getPossibleMoves = () => {
   return possibleMoves
 }
-
-//this only exists for a test. it is connected to the button
+//live player moves
 export const makeAMove = moveMade => {
   if (!gameOver) {
     if (moveMade === 'PASS') {
-      console.log('Live Player is passing.')
       makeAllCpuMoves()
     } else {
-      console.log(moveMade.value)
-      let state = store.getState()
-      players = [
-        state.playerOneHand,
-        state.playerTwoHand,
-        state.playerThreeHand,
-        state.playerFourHand
-      ]
+      getPlayerHands()
       let moves = getPossibleMovesForPlayer(0)
       let moveIsValid = false
       moves.forEach(move => {
@@ -52,30 +42,23 @@ export const makeAMove = moveMade => {
           move.value.toUpperCase() === moveMade.value &&
           move.suit === moveMade.suit
         ) {
-          console.log('Valid move: ' + moveMade.suit + ' ' + moveMade.value)
           moveIsValid = true
         }
       })
       if (!moveIsValid) {
-        console.log('you suck at this game')
+        alert('Invalid Move')
       } else {
         //move is valid. make it happen
         playCard(moveMade)
-
         //remove card from hand
         let updatedHand = players[0].filter(
           move =>
             !(move.value === moveMade.value && move.suit === moveMade.suit)
         )
-
-        console.log(updatedHand)
-
         //Update the player's hand in state
         updateHandState(0, updatedHand)
-
         //check for winner
         if (updatedHand.length === 0) {
-          console.log('Player 1 Wins!!!')
           endGame(0)
         }
         makeAllCpuMoves()
@@ -95,39 +78,34 @@ export const makeAllCpuMoves = () => {
     }, 1000)
   }, 1000)
 }
+export const getPlayerHands = () => {
+  let state = store.getState()
+  players = [
+    state.playerOneHand,
+    state.playerTwoHand,
+    state.playerThreeHand,
+    state.playerFourHand
+  ]
+}
 
 export const makeMoveCPU = playerNumber => {
   if (!gameOver) {
-    let state = store.getState()
-    players = [
-      state.playerOneHand,
-      state.playerTwoHand,
-      state.playerThreeHand,
-      state.playerFourHand
-    ]
+    getPlayerHands()
     let moves = getPossibleMovesForPlayer(playerNumber)
     let hand = players[playerNumber]
-
     if (moves.length === 0) {
-      console.log('No available moves. Player must pass.')
     } else {
       //play first card - can add more logic here later
       let moveMade = moves[0]
       playCard(moveMade)
-
       //remove card from hand
       let updatedHand = hand.filter(
         move => !(move.value === moveMade.value && move.suit === moveMade.suit)
       )
-
-      console.log(updatedHand)
-
       //Update the player's hand in state
       updateHandState(playerNumber, updatedHand)
-
       //check for winner
       if (updatedHand.length === 0) {
-        console.log('Player ' + (playerNumber + 1) + ' Wins!!!')
         endGame(playerNumber)
       }
     }
@@ -151,7 +129,6 @@ const updateStats = winningPlayer => {
   fetch('http://localhost:3001/stats/' + winningPlayer, configObj)
     .then(r => r.json())
     .then(data => {
-      console.log(data)
       fetchStats().then(alert('player ' + winningPlayer + ' wins'))
     })
 }
@@ -167,23 +144,12 @@ export const playCard = move => {
   // Add played card to game board
   let cardIndex = cardValues.findIndex(value => value === move.value)
   store.dispatch({ type: 'UPDATE_' + move.suit, index: cardIndex })
-  console.log('playing the ' + move.value + ' of ' + move.suit)
-
   // update available all moves
   updatePossibleMoves(move)
 }
 
-// Not using this yet
-export const makeMoveHuman = move => {
-  let moves = getPossibleMovesForPlayer()
-  if (moves.length === 0) {
-    console.log('No available moves. Player must pass.')
-  }
-}
-
 export const updatePossibleMoves = moveMade => {
   let cardIndex = cardValues.findIndex(value => value === moveMade.value)
-
   //add new possibilities, if any
   if (cardIndex === 6) {
     // card is a 7, increment and decrement
@@ -198,13 +164,10 @@ export const updatePossibleMoves = moveMade => {
       possibleMoves.push(increment(moveMade.suit, cardIndex))
     }
   }
-
   //remove this card from possible moves
   possibleMoves = possibleMoves.filter(
     move => !(move.value === moveMade.value && move.suit === moveMade.suit)
   )
-  console.log('Updated possible moves:')
-  console.log(possibleMoves)
 }
 
 export const increment = (suit, index) => {
@@ -217,22 +180,14 @@ export const decrement = (suit, index) => {
 
 export const getPossibleMovesForPlayer = playerNumber => {
   let playerHand = players[playerNumber]
-  console.log(playerHand)
-
   let movesForPlayer = []
-
-  console.log(possibleMoves)
-
   // loop through comparing all cards against all moves
   playerHand.forEach(card => {
     possibleMoves.forEach(move => {
       if (move.value.toUpperCase() === card.value && move.suit === card.suit) {
-        console.log('Valid move: ' + card.suit + ' ' + card.value)
         movesForPlayer.push(move)
       }
     })
   })
-  console.log('Possible moves for player:')
-  console.log(movesForPlayer)
   return movesForPlayer
 }

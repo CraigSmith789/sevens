@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { makeAMove } from '../actions/makeMove'
 import { reshuffleCards } from '../actions/deckActions'
 import LivePlayer from '../components/LivePlayer'
 import Card from '../components/Card'
@@ -59,7 +58,7 @@ export class GameBoard extends React.Component {
         <br />
         <LivePlayer playerOneHand={this.props.cards.playerOneHand} />
         <button onClick={this.props.reshuffleCards}>Start Game</button>
-        <button onClick={makeAMove}>Game Simulator</button>
+        
         
       </div>
     )
