@@ -31,40 +31,66 @@ export const getPossibleMoves = () => {
 }
 
 //this only exists for a test. it is connected to the button
-export const makeAMove = () => {
+export const makeAMove = moveMade => {
+  if (!gameOver) {
+    if (moveMade === 'PASS') {
+      console.log('Live Player is passing.')
+      makeAllCpuMoves()
+    } else {
+      console.log(moveMade.value)
+      let state = store.getState()
+      players = [
+        state.playerOneHand,
+        state.playerTwoHand,
+        state.playerThreeHand,
+        state.playerFourHand
+      ]
+      let moves = getPossibleMovesForPlayer(0)
+      let moveIsValid = false
+      moves.forEach(move => {
+        if (
+          move.value.toUpperCase() === moveMade.value &&
+          move.suit === moveMade.suit
+        ) {
+          console.log('Valid move: ' + moveMade.suit + ' ' + moveMade.value)
+          moveIsValid = true
+        }
+      })
+      if (!moveIsValid) {
+        console.log('you suck at this game')
+      } else {
+        //move is valid. make it happen
+        playCard(moveMade)
+
+        //remove card from hand
+        let updatedHand = players[0].filter(
+          move =>
+            !(move.value === moveMade.value && move.suit === moveMade.suit)
+        )
+
+        console.log(updatedHand)
+
+        //Update the player's hand in state
+        updateHandState(0, updatedHand)
+
+        //check for winner
+        if (updatedHand.length === 0) {
+          console.log('Player 1 Wins!!!')
+          endGame(0)
+        }
+        makeAllCpuMoves()
+      }
+    }
+  }
+}
+
+export const makeAllCpuMoves = () => {
   setTimeout(() => {
-    makeMoveCPU(0)
+    makeMoveCPU(1)
     setTimeout(() => {
-      makeMoveCPU(1)
+      makeMoveCPU(2)
       setTimeout(() => {
-        makeMoveCPU(2)
-        setTimeout(() => {
-          makeMoveCPU(3)
-          setTimeout(() => {
-            makeMoveCPU(0)
-            setTimeout(() => {
-              makeMoveCPU(1)
-              setTimeout(() => {
-                makeMoveCPU(2)
-                setTimeout(() => {
-                  makeMoveCPU(3)
-                  setTimeout(() => {
-                    makeMoveCPU(0)
-                    setTimeout(() => {
-                      makeMoveCPU(1)
-                      setTimeout(() => {
-                        makeMoveCPU(2)
-                        setTimeout(() => {
-                          makeMoveCPU(3)
-                        }, 1000)
-                      }, 1000)
-                    }, 1000)
-                  }, 1000)
-                }, 1000)
-              }, 1000)
-            }, 1000)
-          }, 1000)
-        }, 1000)
+        makeMoveCPU(3)
       }, 1000)
     }, 1000)
   }, 1000)
@@ -194,8 +220,6 @@ export const getPossibleMovesForPlayer = playerNumber => {
   console.log(playerHand)
 
   let movesForPlayer = []
-
-  
 
   console.log(possibleMoves)
 
