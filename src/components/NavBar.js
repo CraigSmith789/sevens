@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 class NavBar extends React.Component {
   render () {
@@ -11,15 +12,19 @@ class NavBar extends React.Component {
           width: 'auto'
         }}
       >
+        
         <div style={linkStyle}>
-          <a href='/'>Home</a>
+          <NavLink
+          to='/'>Home</NavLink>
         </div>
 
         <div style={linkStyle}>
-          <a href='/rules'>Rules</a>
+          <NavLink
+          to='/rules'>Rules</NavLink>
         </div>
         <div style={linkStyle}>
-          <a href='/stats'>Stats</a>
+          <NavLink
+          to='/stats'>Stats</NavLink>
         </div>
       </div>
     )

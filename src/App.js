@@ -4,7 +4,7 @@ import './App.css'
 import NavBar from './components/NavBar'
 import GameBoard from './containers/GameBoard'
 import Rules from './components/Rules'
-import Stats from './components/Stats'
+import Stats from './actions/Stats'
 
 function App () {
   return (

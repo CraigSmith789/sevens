@@ -7,7 +7,19 @@ class LivePlayer extends React.Component {
     makeAMove(card)
   }
 
+  // compare = (a, b) => {
+  //   if (a > b) return 1;
+  //   if (b > a) return -1;
+
+  //   return 0;
+  // }
+
   render () {
+    console.log(this.props.playerOneHand)
+    this.props.playerOneHand.sort(function (a, b) {
+      return a.code - b.code
+    })
+    console.log(this.props.playerOneHand)
     return (
       <div>
         <h1>Player 1: </h1>

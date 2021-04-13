@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import store from './../store'
-
+import store from '../store'
+import PlayerStats from '../components/PlayerStats'
 
 export class Stats extends React.Component {
-  componentDidMount(){
+  state = {}
+
+  componentDidMount () {
     fetchStats()
   }
   render () {
@@ -13,16 +15,8 @@ export class Stats extends React.Component {
         <h1>Player Stats</h1>
         {console.log(this.props.stats)}
         {this.props.stats.map(stat => (
-          <div
-            key={stat.id}
-            style={{ display: 'flex', width: '1000px', marginLeft: '300px' }}
-          >
-            <div style={{ marginRight: '20px' }}><b>{stat.name}:</b></div>
-            <div style={{ marginRight: '20px' }}>
-              Games Played: {stat.played}
-            </div>
-            <div style={{ marginRight: '20px' }}>Games Won: {stat.won}</div>
-          </div>
+          <PlayerStats stat={stat}/>
+            
         ))}
       </div>
     )

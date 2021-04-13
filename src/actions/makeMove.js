@@ -1,5 +1,5 @@
 import store from './../store'
-import { fetchStats } from './../components/Stats'
+import { fetchStats } from './Stats'
 const cardValues = [
   'ACE',
   '2',
