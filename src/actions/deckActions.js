@@ -1,3 +1,4 @@
+import { resetForNewGame } from "./makeMove"
 
 export const reshuffleCards = () => dispatch => {
   fetch('https://deckofcardsapi.com/api/deck/jwsoleglkmmd/shuffle/').then(
@@ -6,6 +7,7 @@ export const reshuffleCards = () => dispatch => {
       .then(data => {
         console.log(data)
         dispatch({ type: 'DEAL_CARDS', payload: data })
+        resetForNewGame()
       })
   )
 }

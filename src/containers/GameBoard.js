@@ -57,7 +57,7 @@ export class GameBoard extends React.Component {
         <br />
         <br />
         <LivePlayer playerOneHand={this.props.cards.playerOneHand} />
-        <button onClick={this.props.reshuffleCards}>Start Game</button>
+        <button onClick={this.props.reshuffleCards}>New Game</button>
         
         
       </div>

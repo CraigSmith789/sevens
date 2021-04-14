@@ -25,6 +25,17 @@ let possibleMoves = [
   { value: '7', suit: 'DIAMONDS' }
 ]
 
+export const resetForNewGame = () => {
+  players = []
+  gameOver = false
+  possibleMoves = [
+    { value: '7', suit: 'SPADES' },
+    { value: '7', suit: 'HEARTS' },
+    { value: '7', suit: 'CLUBS' },
+    { value: '7', suit: 'DIAMONDS' }
+  ]
+}
+
 export const getPossibleMoves = () => {
   return possibleMoves
 }
