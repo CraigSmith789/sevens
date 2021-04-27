@@ -332,6 +332,12 @@ export default function gameReducer (state = initialState, action) {
       return state
     //      return {...state, [action.num]: action.cards, player:'', last_played:{play: '', cards: []},
 
+    case 'UPDATE_TOTAL':
+      let newTotal = {
+        
+      }
+    
+    
     case 'DEAL_CARDS':
       let newState = {
         ...initialState,
